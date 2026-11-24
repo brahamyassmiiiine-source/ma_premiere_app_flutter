@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 class AnimePage extends StatefulWidget {
-const AnimePage({super.key});
+final String titre;
+final int total;
+const AnimePage({
+super.key,
+required this.titre,
+required this.total,
+});
+
 
   @override
   State<AnimePage> createState() => _AnimePageState();
@@ -9,7 +16,7 @@ const AnimePage({super.key});
 class _AnimePageState extends State<AnimePage> {
 @override
 int vus = 0;
-final int total = 37;
+
 Widget build(BuildContext context) {
 
 return Scaffold(
@@ -21,8 +28,7 @@ padding: const EdgeInsets.all(24),
 child: Column(
 mainAxisAlignment: MainAxisAlignment.center,
 children: [
-const Text(
-'Death Note',
+Text(widget.titre,
 style: TextStyle(
 fontSize: 28,
 fontWeight: FontWeight.bold,
@@ -34,11 +40,11 @@ style: TextStyle(color: Colors.grey),
 ),
 const SizedBox(height: 16),
 Text(
-'$vus / $total',
+'$vus / $widget.total',
 style: Theme.of(context).textTheme.displayMedium,
 ),
 const SizedBox(height: 24),
-LinearProgressIndicator(value: vus / total),
+LinearProgressIndicator(value: vus / widget.total),
 const SizedBox(height: 32),
 Row(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -69,7 +75,7 @@ Row(
         backgroundColor: Colors.lightGreen,
       ),
       onPressed: () {
-        if (vus < total) {
+        if (vus < widget.total) {
           setState(() {
             vus++;
           });

@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
+
 import 'login_page.dart';
-void main() {
-runApp(const MyApp());
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home_page.dart';
+
+late SharedPreferences prefs;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+  runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
-const MyApp({super.key});
-@override
-Widget build(BuildContext context) {
-return MaterialApp(
-debugShowCheckedModeBanner: false,
-theme: ThemeData(
-colorSchemeSeed: Colors.lightGreen,
-appBarTheme: const AppBarTheme(
-backgroundColor: Colors.lightGreen,
-),
-),
-home: const LoginPage(),
-);
-}
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final connecte = prefs.getBool('connecte') ?? false;
+    return MaterialApp(
+      
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorSchemeSeed: Colors.lightGreen,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.lightGreen),
+      ),
+      home: connecte ? const HomePage() : const LoginPage(),
+    );
+  }
 }
 //push : ajoute la page par-dessus (retour possible).
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'anime_page.dart';
+import 'liste_page.dart';
 import 'login_page.dart';
+import 'main.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -30,7 +31,7 @@ class MyDrawer extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AnimePage()),
+                MaterialPageRoute(builder: (context) => const ListePage()),
               );
             },
           ),
@@ -38,10 +39,13 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout, color: Colors.red),
             title: const Text('Déconnexion'),
-            onTap: () => Navigator.pushReplacement(
+            onTap: () { 
+              prefs.remove('connecte');
+              Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const LoginPage()),
-            ),
+            );
+            }
           ),
         ],
       ),
